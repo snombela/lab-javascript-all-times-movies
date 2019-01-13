@@ -61,7 +61,24 @@ function orderByDuration(movies) {
 }
 
 // How many movies did STEVEN SPIELBERG
-function howManyMovies(movies) {}
+function howManyMovies(movies) {
+    if (movies.length === 0){
+        return undefined;
+    }
+    var directorMovie = movies.filter(function(movie){
+        return movie.director.includes("Steven Spielberg");
+
+    });
+
+    var dramaMovies = directorMovie.filter(function(dramaMovie){
+        return dramaMovie.genre.includes("Drama");
+
+    });
+       
+    return "Steven Spielberg directed " + dramaMovies.length + " drama movies!"; 
+}
+
+howManyMovies(movies);
 
 // Order by title and print the first 20 titles
 function orderAlphabetically(movies) {
@@ -74,4 +91,28 @@ function orderAlphabetically(movies) {
 }
 
 orderAlphabetically(movies);
+
 // Best yearly rate average
+function bestYearAvg (movies){
+    if (movies.length === 0){
+        return undefined;
+    }
+
+    var orderByYear = movies.reduce(function(movie, year){
+        
+    })
+
+}
+
+
+
+function groupBy(objectArray, property) {
+    return objectArray.reduce(function (acc, obj) {
+      var key = obj[property];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(obj);
+      return acc;
+    }, {});
+  }
