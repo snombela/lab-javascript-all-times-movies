@@ -98,21 +98,39 @@ function bestYearAvg (movies){
         return undefined;
     }
 
-    var orderByYear = movies.reduce(function(movie, year){
-        
-    })
+    var groupByYear = movies.reduce(function(years, movie){        
+        if (!years[movie.year]) {
+            years[movie.year] = [];
+        }
+        years[movie.year].push(movie);
+        return years
+    }, {})
 
+    // console.log(groupByYear)
+
+    var result = Object.keys(groupByYear).map(function(key) {
+        return {
+            "year": key,
+            "movies": groupByYear[key]
+        }
+    });
+
+    var yearRate = result.map(function(year){
+        var rateAvgByYear = ratesAverage(year.movies);
+        return {
+            "year": year.year,
+            "totalRate": rateAvgByYear
+        }
+    });
+
+    yearRate.sort(function(a , b){
+        return b.totalRate - a.totalRate;
+    });
+    var bestYear = yearRate[0];
+
+    return "The best year was " + bestYear.year + " with an average rate of " + bestYear.totalRate;
+    
+   
 }
 
-
-
-function groupBy(objectArray, property) {
-    return objectArray.reduce(function (acc, obj) {
-      var key = obj[property];
-      if (!acc[key]) {
-        acc[key] = [];
-      }
-      acc[key].push(obj);
-      return acc;
-    }, {});
-  }
+bestYearAvg(movies) 
